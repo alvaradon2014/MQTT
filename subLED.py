@@ -22,15 +22,23 @@ def on_message(client, userdata, msg):
         GPIO.output(10,GPIO.HIGH)
     #client.disconnect()
 
+############ MAIN ###############
+# Sets naming convention for pins
 GPIO.setmode(GPIO.BCM)
+
+# Prevent warnings from printing, who needs 'em!
 GPIO.setwarnings(False)
+
+# Set GPIO pins as outputs
 GPIO.setup(18,GPIO.OUT)
 GPIO.setup(10,GPIO.OUT)
 
+# Set up MQTT client
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 
+# BrokerIP, Mosquitto port 1883: unencrypted
 client.connect("192.168.1.14", 1883, 60)
 
 # Blocking call that processes network traffic, dispatches callbacks and
